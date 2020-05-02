@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
     mode: 'development',
     entry: {
-        app: './src/index.js',
+        app: './src/index.ts',
     },
     output: {
         filename: '[name].bundle.js',
@@ -21,5 +21,16 @@ module.exports = {
             title: 'WebGL2 Experiments',
         }),
     ],
-
+    module: {
+        rules: [
+          {
+            test: /\.tsx?$/,
+            use: 'ts-loader',
+            exclude: /node_modules/,
+          },
+        ],
+      },
+      resolve: {
+        extensions: [ '.tsx', '.ts', '.js' ],
+      },
 };
