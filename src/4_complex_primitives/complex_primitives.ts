@@ -15,6 +15,8 @@ export class ComplexPrimitives {
 
         // Uniforms and attributes
         const coeffUniformRef = gl.getUniformLocation(program, "coefficient");
+        const translationUniformRef = gl.getUniformLocation(program, "translation");
+        const angleUniformRef = gl.getUniformLocation(program, "angle");
         const vertexPosAttrRef = gl.getAttribLocation(program, "vertexPosition");
         const vertexColorAttrRef = gl.getAttribLocation(program, "vertexColor");
 
@@ -68,17 +70,28 @@ export class ComplexPrimitives {
         })();
 
         gl.useProgram(program);
-
         gl.uniform1f(coeffUniformRef, 0.5);
 
-        gl.clearColor(0.0, 0.4, 0.5, 1.0);
-        gl.clear(gl.COLOR_BUFFER_BIT);
+        let angle = 0;
+        
+        const anim = () => {
+            angle += 0.01;
+            gl.clearColor(0.0, 0.4, 0.5, 1.0);
+            gl.clear(gl.COLOR_BUFFER_BIT);
+    
+            gl.uniform2fv(translationUniformRef, new Float32Array([1.0, 0.0]));
+            gl.uniform1f(angleUniformRef, angle);
+            gl.bindVertexArray(squareVAO);
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    
+            gl.uniform2fv(translationUniformRef, new Float32Array([-1.0, 0.0]));
+            gl.uniform1f(angleUniformRef, -angle);
+            gl.bindVertexArray(triangleVAO);
+            gl.drawArrays(gl.TRIANGLES, 0, 3);
 
-        gl.bindVertexArray(squareVAO);
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-
-        gl.bindVertexArray(triangleVAO);
-        gl.drawArrays(gl.TRIANGLES, 0, 3);
+            requestAnimationFrame(anim);
+        }
+        anim();
     }
 
 }
