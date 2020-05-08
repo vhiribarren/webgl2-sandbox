@@ -1,5 +1,6 @@
 import {SimpleSquare} from './1_simple_square/simple_square';
 import {LineAndPoint} from './2_line_and_point/line_and_point';
+import {ColoredSquare} from './3_colored_square/colored_square';
 import {generateWebGLCanvas} from './utils';
 
 
@@ -11,3 +12,7 @@ simpleSquare.render(simpleSquareContext);
 const simpleLineContext = generateWebGLCanvas(window.innerWidth-20, 250);
 const simpleLine = new LineAndPoint();
 simpleLine.render(simpleLineContext);
+
+const coloredSquareContext = generateWebGLCanvas(window.innerWidth-20, 250);
+const coloredSquare = new ColoredSquare();
+coloredSquare.render(coloredSquareContext);
