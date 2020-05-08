@@ -52,26 +52,17 @@ export class ComplexPrimitives {
             gl.bindVertexArray(vao);
             const squareBufferRef = gl.createBuffer();
             const squarePoints = new Float32Array([
-                -1.0, -1.0,
-                -1.0, 1.0,
-                1.0, -1.0,
-                1.0, 1.0
+                -1.0, -1.0,     1.0, 1.0, 1.0, 1.0, // Coordinates, color
+                -1.0, 1.0,      0.0, 1.0, 1.0, 1.0,
+                1.0, -1.0,      1.0, 0.0, 1.0, 1.0,
+                1.0, 1.0,       1.0, 1.0, 0.0, 1.0,
             ]);
+            const FLOAT_SIZE = 4;
             gl.bindBuffer(gl.ARRAY_BUFFER, squareBufferRef);
             gl.bufferData(gl.ARRAY_BUFFER, squarePoints, gl.STATIC_DRAW);
-            gl.vertexAttribPointer(vertexPosAttrRef, 2, gl.FLOAT, false, 0, 0);
+            gl.vertexAttribPointer(vertexPosAttrRef, 2, gl.FLOAT, false, 6*FLOAT_SIZE, 0);
             gl.enableVertexAttribArray(vertexPosAttrRef);
-            // Square point color
-            const colorBufferRef = gl.createBuffer();
-            const colors = new Float32Array([
-                1.0, 1.0, 1.0, 1.0,
-                0.0, 1.0, 1.0, 1.0,
-                1.0, 0.0, 1.0, 1.0,
-                1.0, 1.0, 0.0, 1.0,
-            ]);
-            gl.bindBuffer(gl.ARRAY_BUFFER, colorBufferRef);
-            gl.bufferData(gl.ARRAY_BUFFER, colors, gl.STATIC_DRAW);
-            gl.vertexAttribPointer(vertexColorAttrRef, 4, gl.FLOAT, false, 0, 0);
+            gl.vertexAttribPointer(vertexColorAttrRef, 4, gl.FLOAT, false, 6*FLOAT_SIZE, 2*FLOAT_SIZE);
             gl.enableVertexAttribArray(vertexColorAttrRef);
             return vao;
         })();
