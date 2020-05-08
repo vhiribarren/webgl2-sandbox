@@ -55,3 +55,19 @@ export function createProgram(context: WebGL2RenderingContext, vertexShader: Web
     }
     return programRef;
 }
+
+
+export function generateWebGLCanvas(width: number, height: number): WebGL2RenderingContext | null {
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    document.body.appendChild(canvas);
+    const gl = canvas.getContext("webgl2");
+    if (!gl) {
+        console.warn("WebGL2 not available");
+        return null;
+    }
+    // Width as variable size, while height is constant for image
+    gl.viewport((canvas.width - canvas.height)/2, 0, canvas.height, canvas.height);
+    return gl;
+}
