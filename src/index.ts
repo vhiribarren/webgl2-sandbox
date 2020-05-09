@@ -5,19 +5,10 @@ import {ComplexPrimitives} from './4_complex_primitives/complex_primitives';
 import {generateWebGLCanvas} from './utils';
 
 
+const demos = [SimpleSquare, LineAndPoint, ColoredSquare, ComplexPrimitives];
 
-const simpleSquareContext = generateWebGLCanvas(window.innerWidth-20, 250);
-const simpleSquare = new SimpleSquare();
-simpleSquare.render(simpleSquareContext);
-
-const simpleLineContext = generateWebGLCanvas(window.innerWidth-20, 250);
-const simpleLine = new LineAndPoint();
-simpleLine.render(simpleLineContext);
-
-const coloredSquareContext = generateWebGLCanvas(window.innerWidth-20, 250);
-const coloredSquare = new ColoredSquare();
-coloredSquare.render(coloredSquareContext);
-
-const complexPrimitivesContext = generateWebGLCanvas(window.innerWidth-20, 250);
-const complexPrimitives = new ComplexPrimitives();
-complexPrimitives.render(complexPrimitivesContext);
+demos.forEach(Demo => {
+    const demoContext = generateWebGLCanvas(window.innerWidth-20, 250);
+    const demo = new Demo();
+    demo.render(demoContext);
+});
